@@ -105,7 +105,7 @@
                     android:gravity="center"
                     android:hint="파싱시킬 번호 입력"
                     android:inputType="phone"
-                    android:text="1588" />
+                    android:text="0977,4907" />
 
                 <EditText
                     android:id="@+id/uri"
