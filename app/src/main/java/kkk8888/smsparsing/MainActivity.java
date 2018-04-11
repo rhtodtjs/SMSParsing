@@ -2,6 +2,7 @@ package kkk8888.smsparsing;
 
 import android.Manifest;
 import android.content.ContentResolver;
+import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.SharedPreferences;
@@ -29,12 +30,14 @@ public class MainActivity extends AppCompatActivity {
     final static String USER_DEFINED_MSG = "com.appstudio.android.msg";
 
     Message msg;
-    ArrayList<Message> arrayList = new ArrayList<>();
+    ArrayList<LittleMSG> arrayList = new ArrayList<>();
 
     boolean progressing = false;
     ListView listView;
     MAdapter adapter;
-    EditText status, uri, user, pass, dbname, portnum;
+    EditText status, uri, user, pass, dbname, portnum, code , url;
+
+    public static Context MContext;
 
 
     @Override
@@ -51,6 +54,10 @@ public class MainActivity extends AppCompatActivity {
         pass = (EditText) findViewById(R.id.pass);
         dbname = (EditText) findViewById(R.id.dbname);
         portnum = (EditText) findViewById(R.id.portnum);
+        code = (EditText) findViewById(R.id.code);
+        url = (EditText)findViewById(R.id.url);
+
+        MContext = this;
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             if (checkSelfPermission(Manifest.permission.READ_SMS) == PackageManager.PERMISSION_DENIED) {
@@ -72,6 +79,8 @@ public class MainActivity extends AppCompatActivity {
             String temp3 = load.getString("pass", "");
             String temp4 = load.getString("dbname", "");
             String temp5 = load.getString("portnum", "");
+            String temp6 = load.getString("code", "");
+            String temp7 = load.getString("url","");
 
             status.setText(temp);
             uri.setText(temp1);
@@ -79,6 +88,8 @@ public class MainActivity extends AppCompatActivity {
             pass.setText(temp3);
             dbname.setText(temp4);
             portnum.setText(temp5);
+            code.setText(temp6);
+            url.setText(temp7);
 
         }
 
@@ -97,6 +108,8 @@ public class MainActivity extends AppCompatActivity {
         editor.putString("pass", pass.getText().toString());
         editor.putString("dbname", dbname.getText().toString());
         editor.putString("portnum", portnum.getText().toString());
+        editor.putString("code", code.getText().toString());
+        editor.putString("url",url.getText().toString());
         editor.commit();
 
         Toast.makeText(this, "저장 완료", Toast.LENGTH_SHORT).show();
@@ -142,7 +155,7 @@ public class MainActivity extends AppCompatActivity {
                     msg.setBody(body);
 
                     // if(address.contains("0977")){
-                    arrayList.add(msg); //이부분은 제가 arraylist에 담으려고 하기떄문에 추가된부분이며 수정가능합니다.
+                    //arrayList.add(msg); //이부분은 제가 arraylist에 담으려고 하기떄문에 추가된부분이며 수정가능합니다.
 
                     // }
 
@@ -185,6 +198,12 @@ public class MainActivity extends AppCompatActivity {
         arrayList.clear();
 
 
+    }
+
+    public void addList(LittleMSG message) {
+
+        arrayList.add(message);
+        adapter.notifyDataSetChanged();
     }
 
 

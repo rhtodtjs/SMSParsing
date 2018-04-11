@@ -5,6 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
+    android:padding="9dp"
     android:weightSum="10"
     tools:context="kkk8888.smsparsing.MainActivity">
 
@@ -12,7 +13,17 @@
         android:id="@+id/listview"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="4"></ListView>
+        android:layout_weight="5"></ListView>
+
+    <EditText
+        android:id="@+id/status"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:gravity="center"
+        android:hint="파싱시킬 번호 입력"
+        android:inputType="phone"
+        android:text="0977,4907" />
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -20,7 +31,8 @@
         android:layout_weight="4.5"
         android:background="#25a52a2a"
         android:orientation="horizontal"
-        android:padding="8dp">
+        android:padding="8dp"
+        android:visibility="gone">
 
 
         <LinearLayout
@@ -84,6 +96,7 @@
 
         </LinearLayout>
 
+
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -99,32 +112,14 @@
 
 
                 <EditText
-                    android:id="@+id/status"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:gravity="center"
-                    android:hint="파싱시킬 번호 입력"
-                    android:inputType="phone"
-                    android:text="0977,4907" />
-
-                <EditText
-                    android:id="@+id/uri"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:gravity="center"
-                    android:hint="DB 주소"
-                    android:inputType="text"
-                    android:text="mirae5.ipdisk.co.kr" />
-
-
-                <EditText
                     android:id="@+id/user"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:gravity="center"
                     android:hint="DB 사용자 이름"
                     android:inputType="text"
-                    android:text="jun" />
+                    android:text="jun"
+                    android:visibility="invisible" />
 
                 <EditText
                     android:id="@+id/pass"
@@ -133,7 +128,8 @@
                     android:gravity="center"
                     android:hint="DB 사용자 비밀번호"
                     android:inputType="text"
-                    android:text="1234" />
+                    android:text="1234"
+                    android:visibility="invisible" />
 
                 <EditText
                     android:id="@+id/dbname"
@@ -142,7 +138,8 @@
                     android:gravity="center"
                     android:hint="DB이름"
                     android:inputType="text"
-                    android:text="smsserver" />
+                    android:text="smsserver"
+                    android:visibility="invisible" />
 
                 <EditText
                     android:id="@+id/portnum"
@@ -151,7 +148,8 @@
                     android:gravity="center"
                     android:hint="DB 포트"
                     android:inputType="text"
-                    android:text="3306" />
+                    android:text="3306"
+                    android:visibility="invisible" />
 
 
             </LinearLayout>
@@ -161,12 +159,54 @@
 
     </LinearLayout>
 
+    <EditText
+    android:id="@+id/uri"
+    android:layout_width="match_parent"
+    android:layout_height="0dp"
+    android:layout_weight="1"
+    android:gravity="center"
+    android:hint="DB 주소"
+    android:inputType="text"
+    android:text="mirae5.ipdisk.co.kr"
+    android:visibility="gone" />
+
+    <EditText
+        android:id="@+id/url"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:gravity="center"
+        android:hint="php주소"
+        android:inputType="text"
+        android:text="http://picksg.com/document/bank_do.php/"
+        android:visibility="visible" />
+
+    <EditText
+        android:id="@+id/code"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:gravity="center"
+        android:hint="김치볶음밥"
+        android:inputType="text"
+        android:text="rlaclqhRdmaqkq"
+        android:visibility="visible" />
+
+
     <Button
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="0.6"
+        android:layout_weight="1"
         android:onClick="save"
         android:text="저장" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:background="#25a52a2a"
+        android:gravity="center"
+        android:text="제작 : 강실장" />
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -174,6 +214,7 @@
         android:layout_weight="1"
         android:gravity="center"
         android:orientation="horizontal"
+        android:visibility="gone"
         android:weightSum="9">
 
         <Button
