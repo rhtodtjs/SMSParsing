@@ -5,6 +5,8 @@ package kkk8888.smsparsing;
  */
 
 public class Message {
+
+
     String messageId;
     String threadId;
     String address; //휴대폰번호
@@ -14,6 +16,7 @@ public class Message {
     String body; //문자내용
 
     public Message() {
+
     }
 
     public String getMessageId() {

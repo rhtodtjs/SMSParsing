@@ -25,6 +25,8 @@ import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLEncoder;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 /**
  * Created by alfo06-18 on 2017-09-28.
@@ -34,9 +36,9 @@ public class SMSReceiver extends BroadcastReceiver {
 
     RequestQueue queue;
     Context qc;
-    String php = "http://ec2-13-124-92-145.ap-northeast-2.compute.amazonaws.com/receive.php";
-
+    String php ="";
     String number1, message1;
+    MainActivity ma;
 
 
     @Override
@@ -71,6 +73,11 @@ public class SMSReceiver extends BroadcastReceiver {
             String temp3 = load.getString("pass", "");
             String temp4 = load.getString("dbname", "");
             String temp5 = load.getString("portnum", "");
+            String temp6 = load.getString("code", "");
+
+            php = load.getString("url","");
+
+            ma = (MainActivity) MainActivity.MContext;
 
             if (temp == null)
                 Toast.makeText(context, "Unsaved Phone Number", Toast.LENGTH_SHORT).show();
@@ -80,6 +87,7 @@ public class SMSReceiver extends BroadcastReceiver {
             queue = Volley.newRequestQueue(context);
             qc = context;
 
+            //log.d
 
             for (int i = 0; i < fuck.length; i++) {
                 Log.i("키키", fuck[i]);
@@ -90,8 +98,16 @@ public class SMSReceiver extends BroadcastReceiver {
                         @Override
                         public void onResponse(String response) {
 
-                            Toast.makeText(qc, "저장 완료", Toast.LENGTH_SHORT).show();
-                            Log.i("확인해", response);
+                            //Toast.makeText(qc, response, Toast.LENGTH_SHORT).show();
+                            //Log.i("확인해", response + "임");
+                            Date date = new Date();
+                            SimpleDateFormat sdf = new SimpleDateFormat("mm-dd hh:mm:ss");
+                            if (response.equals("0")) {
+                                ma.addList(new LittleMSG(number1, message1, sdf.format(date), "성공"));
+                            } else if (response.equals("1")) {
+                                ma.addList(new LittleMSG(number1, message1, sdf.format(date), "실패"));
+
+                            }
 
                         }
                     }, new Response.ErrorListener() {
@@ -111,56 +127,10 @@ public class SMSReceiver extends BroadcastReceiver {
                     smpr.addStringParam("pass", temp3);
                     smpr.addStringParam("dbname", temp4);
                     smpr.addStringParam("port", temp5);
+                    smpr.addStringParam("code", temp6);
 
                     queue.add(smpr);
 
-
-//                new Thread() {
-//                    @Override
-//                    public void run() {
-//
-//                        try {
-//                            URL url = new URL(php);
-//                            HttpURLConnection connection = (HttpURLConnection) url.openConnection();
-//                            connection.setDoOutput(true);
-//                            connection.setDoInput(true);
-//                            connection.setUseCaches(false);
-//                            connection.setRequestMethod("POST");
-//
-//                            number1 = URLEncoder.encode(number1, "utf-8");
-//                            message1 = URLEncoder.encode(message1, "utf-8");
-//
-//                            String data = "number=" + number1 + "&message=" + message1;
-//
-//                            OutputStream os = connection.getOutputStream();
-//                            os.write(data.getBytes());
-//                            os.flush();
-//                            os.close();
-//
-//                            InputStream is = connection.getInputStream();
-//                            InputStreamReader isr = new InputStreamReader(is);
-//                            BufferedReader reader = new BufferedReader(isr);
-//                            final StringBuffer buffer = new StringBuffer();
-//
-//                            String line = reader.readLine();
-//
-//                            while (line != null) {
-//
-//                                buffer.append(line);
-//                                line = reader.readLine();
-//                            }
-//
-//
-//                            Log.i("tlqkf", line.toString());
-//
-//
-//                        } catch (MalformedURLException e) {
-//                            e.printStackTrace();
-//                        } catch (IOException e) {
-//                            e.printStackTrace();
-//                        }
-//                    }
-//                }.start();
 
                 }
             }
